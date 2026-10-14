@@ -64,19 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   
-  @override
-  void dispose() {
-    inputController.dispose();
-    searchController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    int itemsLeft = items.where((item) => !item.bought).length;
-
-    
-    
 
     return Scaffold(
       appBar: AppBar(
@@ -139,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text('Your list is empty', 
                         style: TextStyle(fontSize: 18, color: Colors.grey)),
                   )
-                
+            
                 : filteredList.isEmpty
                     ? const Center(
                         child: Text('Nothing here', 
@@ -156,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               });
                             },
                             onLongPress: () {
-                           
+                             
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -165,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ).then((_) {
                                 setState(() {});
                               });
-                            
+                             
                             },
                             leading: Icon(
                               item.bought
@@ -191,6 +178,28 @@ class _HomeScreenState extends State<HomeScreen> {
                             trailing: Row(
 mainAxisSize: MainAxisSize.min,
 children: [
+
+
+IconButton(
+icon: const Icon(Icons.remove_circle_outline),
+onPressed: () {
+if (item.quantity > 1) { 
+setState(() {
+item.quantity--;
+});
+}
+},
+),
+Text('${item.quantity}',
+style: const TextStyle(fontSize: 16)),
+IconButton(
+icon: const Icon(Icons.add_circle_outline),
+onPressed: () {
+setState(() {
+item.quantity++;
+});
+},
+),
 
 const SizedBox(width: 8),
 IconButton(
